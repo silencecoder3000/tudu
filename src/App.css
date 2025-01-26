@@ -14,7 +14,8 @@
 
 /* Contenedor con margen para no ocupar toda la pantalla */
 .app-wrapper {
-  max-width: 1200px;
+  width: 80vw;
+  height: 45rem;
   margin: 2rem auto;    /* márgenes para look más moderno */
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   background-color: var(--white);
@@ -25,7 +26,7 @@
 /* Layout principal: Sidebar izq + contenido der */
 .layout-container {
   display: flex;
-  height: 700px; /* altura de ejemplo */
+  height: 100%; 
 }
 
 /* SIDEBAR */
