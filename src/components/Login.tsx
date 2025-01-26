@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 interface LoginProps {
-  onLogin?: (userOrEmail: string, password: string) => void;
+  onLogin?: () => void;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
@@ -13,13 +13,45 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (onLogin) {
-      onLogin(userOrEmail, password);
+  
+    try {
+      const response = await fetch('http://localhost:5176/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Username: userOrEmail,
+          Password: password,
+        }),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok && result.success) {
+
+        console.log(result.message);
+  
+
+        localStorage.setItem('authToken', result.token);
+        if (onLogin) {
+          onLogin();
+        }
+
+        alert('Inicio de sesión exitoso');
+      } else {
+        // Inicio de sesión fallido
+        console.error(result.message);
+        alert(result.message); // Mostrar mensaje al usuario
+      }
+    } catch (error) {
+      console.error('Error durante el inicio de sesión:', error);
+      alert('Ocurrió un error inesperado. Por favor, intenta de nuevo.');
     }
-    // Lógica de login real (llamar API, etc.)
   };
+  
 
   const goToSignUp = () => {
     // Navega a /signup
@@ -41,7 +73,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             <div className="input-icon">
               <input
                 type="text"
-                placeholder="EMAIL"
+                placeholder="USERNAME"
                 value={userOrEmail}
                 onChange={(e) => setUserOrEmail(e.target.value)}
                 required

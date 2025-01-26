@@ -80,19 +80,11 @@ function App() {
   const [userAlias, setUserAlias] = useState('TuAlias')
 
   // ------------------- Handling login -------------------
-  const handleLogin = (userOrEmail: string, pass: string) => {
-    const { username, email, password } = credentials
-    const matchUserOrEmail =
-      userOrEmail.toLowerCase() === email.toLowerCase() ||
-      userOrEmail.toLowerCase() === username.toLowerCase()
+  const handleLogin = () => {
 
-    if (matchUserOrEmail && pass === password) {
-      setIsLoggedIn(true)
-    } else {
-      alert('Credenciales inválidas (e.g. user@example.com / 123 o myuser / 123)')
-    }
+    setIsLoggedIn(true)
   }
-
+  
   const handleUpdateCredentials = (newCreds: typeof credentials) => {
     setCredentials(newCreds)
     alert('¡Credenciales actualizadas!')
