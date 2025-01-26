@@ -26,13 +26,46 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Manejo de envío de formulario
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (onSignUp) {
-      onSignUp(user, email, password, confirmPassword);
+
+    // Validación básica de contraseñas
+    if (password !== confirmPassword) {
+      alert('Las contraseñas no coinciden');
+      return;
     }
-    // Aquí podrías realizar validaciones o llamada a tu API
+
+    // Crear objeto con datos de registro
+    const userData = {
+      Username: user,
+      Email: email,
+      Password: password,
+    };
+
+    try {
+      // Realizar la solicitud POST para crear el usuario
+      const response = await fetch('http://localhost:5176/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert(`Usuario: ${user} creado correctamente`);
+        if (onSignUp) {
+          onSignUp(user, email, password, confirmPassword);
+        }}
+    
+    } catch (error) {
+      console.error('Error al registrar el usuario:', error);
+      alert('Hubo un problema al intentar crear el usuario');
+    }
   };
+
 
   // Botón "Cancelar" => regresar al Login
   const handleCancel = () => {
