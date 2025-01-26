@@ -1,0 +1,171 @@
+:root {
+  /* Paleta pedida */
+  --color-panel-left: #FFA69E;
+  --color-highlight: #FF686B;
+  --color-white: #FFFFFF;
+
+  /* Extras para texto, bordes, etc. */
+  --color-text: #333;
+  --color-overlay: rgba(0, 0, 0, 0.4);
+  --color-border: #ddd;
+  --radius: 8px;
+}
+
+/* Overlay que cubre toda la pantalla */
+.settings-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-overlay);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Contenedor principal del modal */
+.settings-modal {
+  position: relative;
+  background: var(--color-white);
+  width: 800px;
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+/* Botón X para cerrar (esquina superior derecha) */
+.settings-close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.8rem;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #666;
+  z-index: 10;
+}
+.settings-close-btn:hover {
+  color: #333;
+}
+
+/* Layout interno: panel izq + contenido der */
+.settings-layout {
+  display: flex;
+  flex: 1;
+}
+
+/* SIDEBAR IZQUIERDO */
+.settings-sidebar {
+  background-color: var(--color-panel-left);
+  width: 220px;
+  padding: 1rem;
+  color: var(--color-white);
+  box-sizing: border-box;
+}
+
+.settings-sidebar h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.settings-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.settings-sidebar li {
+  padding: 0.6rem;
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* Item activo */
+.settings-sidebar li.active,
+.settings-sidebar li:hover {
+  background-color: var(--color-highlight);
+}
+
+/* PANEL DE CONTENIDO A LA DERECHA */
+.settings-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto; /* scrollbar si excede altura */
+  box-sizing: border-box;
+  color: var(--color-text);
+}
+
+/* Cada sección se envuelve en .settings-section-content */
+.settings-section-content h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: var(--color-highlight);
+}
+
+.label-row {
+  margin-top: 1rem;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  align-items: center;
+}
+
+.checkbox-row {
+  align-items: center;
+}
+
+/* Inputs / selects */
+.settings-section-content input[type="text"],
+.settings-section-content input[type="password"],
+.settings-section-content input[type="time"],
+.settings-section-content select {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Botones */
+.settings-section-content button {
+  background-color: var(--color-highlight);
+  border: none;
+  color: var(--color-white);
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.settings-section-content button:hover {
+  opacity: 0.9;
+}
+
+/* Scrollbar minimalista en el panel derecho (opcional) */
+.settings-content::-webkit-scrollbar {
+  width: 6px;
+}
+.settings-content::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 3px;
+}
+.settings-content::-webkit-scrollbar-thumb {
+  background: var(--color-highlight);
+  border-radius: 3px;
+}
+
