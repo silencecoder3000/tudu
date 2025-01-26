@@ -1,0 +1,201 @@
+/* Reseteo y estilos base */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5; /* color de fondo general si lo deseas */
+  font-family: sans-serif;
+}
+
+/* Contenedor principal */
+.login-container {
+  width: 80vw;
+  height: 45rem;
+  background-color: #b9f2ff;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+}
+
+/* Círculo superior blanco */
+.white-circle-top {
+  position: absolute;
+  top: -19rem;
+  left: 55%;
+  transform: translateX(-50%);
+  width: 28rem;
+  height: 28rem;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+/* Círculo inferior blanco */
+.white-circle-bottom {
+  position: absolute;
+  bottom: -17rem;
+  left: -9rem;
+  width: 24rem;
+  height: 24rem;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+/* Tarjeta de login */
+.login-box {
+  position: relative;
+  z-index: 1;
+  width: 360px;
+  height: 500px;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  margin-left: 7rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* Inputs y su contenedor */
+.input-wrapper {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon input {
+  width: 100%;
+  padding: 0.8rem 2.5rem 0.8rem 1rem;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 1rem;
+}
+
+.input-icon .icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* ============================= */
+/*       BOTONES LOGIN          */
+/* ============================= */
+.buttons-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  display: block;            /* Para poder usar margin auto */
+  margin: 1rem auto 0 auto;  /* Centra el botón horizontalmente */
+}
+
+/* Sign Up */
+.signup-btn {
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 30px; /* Bordes circulares */
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: var(--color-pink, #FFA69E);
+  color: var(--color-white, #FFFFFF);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Login */
+.login-btn {
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: var(--color-white, #FFFFFF);
+  color: #333;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Semicírculo coral */
+.intro-box {
+  position: absolute;
+  right: -15rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50rem;
+  height: 50rem;
+  background-color: #ff7d71;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centramos el contenido dentro del círculo */
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Contenido dentro del semicírculo */
+.intro-content {
+  width: 80%;
+  color: #FFFFFF;
+  padding: 2rem 2rem;
+  /* Si quieres el texto a la izquierda y solo centrar el botón, no uses text-align: center aquí */
+}
+
+/* Título grande y con sombra (tu-DU) */
+.tudu-title {
+  font-size: 3rem;        /* más grande */
+  font-weight: 900;       /* negrita extra */
+  font-style: italic;     /* itálica */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* sombra */
+  margin-bottom: 1rem;
+}
+
+/* Ajusta el párrafo si deseas cambiar la alineación */
+.intro-content p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  max-width: 40ch;
+  overflow-wrap: break-word;
+}
+
+/* Botón "LEARN MORE" centrado horizontalmente */
+.learn-more-btn {
+  display: block;            /* Para poder usar margin auto */
+  margin: 1rem auto 0 8rem;  /* Centra el botón horizontalmente */
+  padding: 0.8rem 1.5rem;
+  background-color: #79757f;
+  color: #FFFFFF;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+.learn-more-btn:hover {
+  background-color: #FFFFFF;
+  color: #FF686B;
+}
+

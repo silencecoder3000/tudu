@@ -21,8 +21,22 @@ interface LayoutProps {
   showSettings: boolean
   openSettings: () => void
   closeSettings: () => void
+
+  // Credenciales: username, email, password
+  credentials: {
+    username: string
+    email: string
+    password: string
+  }
+  onUpdateCredentials: (newCreds: {
+    username: string
+    email: string
+    password: string
+  }) => void
+
+  // (NEW) Alias separado, y función para cambiarlo
   userAlias: string
-  setUserAlias: React.Dispatch<React.SetStateAction<string>>  // Tipo para setState
+  onAliasChange: (alias: string) => void
 }
 
 const Layout: React.FC<LayoutProps> = ({
@@ -43,8 +57,10 @@ const Layout: React.FC<LayoutProps> = ({
   showSettings,
   openSettings,
   closeSettings,
-  userAlias,
-  setUserAlias
+  credentials,
+  onUpdateCredentials,
+  userAlias,          // <--- alias adicional
+  onAliasChange       // <--- función para cambiar alias
 }) => {
   return (
     <div className="layout-container">
@@ -55,26 +71,34 @@ const Layout: React.FC<LayoutProps> = ({
         onCategorySelect={onCategorySelect}
         removeCategory={removeCategory}
         openModal={openModal}
-        userAlias={userAlias}
+        // Si quieres usar `credentials.username` en el saludo:
+        // userName={credentials.username}
+
+        // (NEW) Si prefieres usar el alias personal (distinto al username real):
+        userName={userAlias}
       />
+
       <MainContent
-        // Búsqueda
         onSearch={onSearch}
-        // Tareas
         tasks={filteredTasks}
         completedTasksInCat={completedTasksInCat}
         toggleComplete={toggleComplete}
         toggleStarred={toggleStarred}
         currentCategory={selectedCategory}
-        // Modal de nueva tarea
         showModal={showModal}
         closeModal={closeModal}
         addTask={addTask}
-        // Settings
         showSettings={showSettings}
         openSettings={openSettings}
         closeSettings={closeSettings}
-        onAliasChange={(alias: string) => setUserAlias(alias)}
+
+        // Credenciales p/ SettingsModal
+        credentials={credentials}
+        onUpdateCredentials={onUpdateCredentials}
+
+        // (NEW) También pasamos alias al MainContent para que SettingsModal pueda usar onAliasChange
+        userAlias={userAlias}
+        onAliasChange={onAliasChange}
       />
     </div>
   )

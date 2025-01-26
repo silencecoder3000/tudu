@@ -17,6 +17,21 @@ interface MainContentProps {
   showSettings: boolean
   openSettings: () => void
   closeSettings: () => void
+  
+  // Para credenciales (username, email, password)
+  credentials: {
+    username: string
+    email: string
+    password: string
+  }
+  onUpdateCredentials: (newCreds: {
+    username: string
+    email: string
+    password: string
+  }) => void
+
+  // (NEW) Alias independiente del username
+  userAlias: string
   onAliasChange: (alias: string) => void
 }
 
@@ -33,7 +48,10 @@ const MainContent: React.FC<MainContentProps> = ({
   showSettings,
   openSettings,
   closeSettings,
-  onAliasChange
+  credentials,
+  onUpdateCredentials,
+  userAlias,         // <<--- alias separado
+  onAliasChange      // <<--- función para actualizar alias
 }) => {
   const [searchValue, setSearchValue] = useState('')
 
@@ -44,7 +62,6 @@ const MainContent: React.FC<MainContentProps> = ({
 
   return (
     <div className="main-content">
-      {/* Barra superior */}
       <div className="top-bar">
         <input
           type="text"
@@ -53,21 +70,24 @@ const MainContent: React.FC<MainContentProps> = ({
           onChange={handleSearchChange}
           className="search-input"
         />
-        
-        {/* Botón engrane para abrir settings */}
-        <div className="gear-icon" onClick={openSettings} style={{cursor: 'pointer'}}>
+        <h2>{currentCategory}</h2>
+        <div
+          className="gear-icon"
+          onClick={openSettings}
+          style={{ cursor: 'pointer' }}
+        >
           ⚙
         </div>
       </div>
 
-      {/* Lista de (in)completas para la categoría o el modo "Completed" */}
+      {/* Lista de tareas (incompletas) */}
       <TaskList
         tasks={tasks}
         toggleComplete={toggleComplete}
         toggleStarred={toggleStarred}
       />
 
-      {/* Si NO es la cat "Completed" ni "Starred", mostrar la sección de completados de ESA categoría */}
+      {/* Si no es "Starred" ni "Completed", mostrar la sección de completados de esa categoría */}
       {currentCategory !== 'Completed' && currentCategory !== 'Starred' && (
         <>
           <h3 className="completed-heading" style={{ marginTop: '1rem' }}>
@@ -81,7 +101,7 @@ const MainContent: React.FC<MainContentProps> = ({
         </>
       )}
 
-      {/* Modal para nueva tarea */}
+      {/* Modal para crear tarea */}
       {showModal && (
         <NewTaskModal
           closeModal={closeModal}
@@ -90,11 +110,15 @@ const MainContent: React.FC<MainContentProps> = ({
         />
       )}
 
-      {/* Modal para settings */}
+      {/* Modal de Settings */}
       {showSettings && (
         <SettingsModal
           closeSettings={closeSettings}
+          // Alias
           onAliasChange={onAliasChange}
+          // Credenciales
+          currentCreds={credentials}
+          onUpdateCredentials={onUpdateCredentials}
         />
       )}
     </div>

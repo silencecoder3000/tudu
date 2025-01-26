@@ -1,0 +1,165 @@
+/* ============================= */
+/*     CONTENEDOR PRINCIPAL     */
+/* ============================= */
+.signup-container {
+  position: relative;
+  width: 80vw;
+  height: 45rem;
+  background-color: var(--color-coral, #ff7d71); /* coral */
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  align-items: center;
+}
+
+/* Círculos blancos */
+.white-circle-top {
+  position: absolute;
+  top: -6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20rem;
+  height: 20rem;
+  background-color: var(--color-white, #FFFFFF);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.white-circle-bottom {
+  position: absolute;
+  bottom: -6rem;
+  left: -6rem;
+  width: 12rem;
+  height: 12rem;
+  background-color: var(--color-white, #FFFFFF);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+/* ============================= */
+/*        CAJA DE SIGNUP        */
+/* ============================= */
+.signup-box {
+  position: relative;
+  z-index: 1;
+  width: 360px;
+  height: 550px;
+  background-color: var(--color-white, #FFFFFF);
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  margin-left: 7rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.signup-box h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* ============================= */
+/*         CAMPOS E INPUTS      */
+/* ============================= */
+.input-wrapper {
+  margin-bottom: 1.2rem;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon input {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.8rem 2.5rem 0.8rem 1rem;
+  border-radius: 30px; /* Borde circular tipo "pill" */
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.input-icon .icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* ============================= */
+/*            BOTONES           */
+/* ============================= */
+.buttons-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.cancel-btn,
+.signup-btn {
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Botón "Cancelar": gris oscuro */
+.cancel-btn {
+  background-color: #595959;
+  color: var(--color-white, #FFFFFF);
+}
+
+/* Botón "Sign Up": rosa claro */
+.signup-btn {
+  background-color: var(--color-pink, #FFA69E);
+  color: var(--color-white, #FFFFFF);
+}
+
+/* ============================= */
+/*    SEMICÍRCULO A LA DERECHA  */
+/* ============================= */
+.intro-box-s {
+  position: absolute;
+  right: -15rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50rem;
+  height: 50rem;
+  background-color: #b9f2ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.intro-content-s {
+  width: 80%;
+  padding: 2rem 2rem;
+  margin: auto;
+  color: #000;
+  text-align: left;
+}
+
+.tudu-title-s {
+  font-size: 3rem;
+  font-weight: 900;
+  font-style: italic;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  margin-bottom: 1rem;
+}
+
+.intro-content-s p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  max-width: 40ch;
+  overflow-wrap: break-word;
+}
+

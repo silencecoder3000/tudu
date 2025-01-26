@@ -1,58 +1,97 @@
 import React, { useState } from 'react'
 import './SettingsModal.css'
 
+/** 
+ * Props combinadas:
+ * - closeSettings (para cerrar el modal)
+ * - onAliasChange (para guardar el alias que ya manejabas)
+ * - currentCreds / onUpdateCredentials (para editar username, email, password)
+ */
 interface SettingsModalProps {
   closeSettings: () => void
   onAliasChange: (alias: string) => void
+  currentCreds: {
+    username: string
+    email: string
+    password: string
+  }
+  onUpdateCredentials: (newCreds: {
+    username: string
+    email: string
+    password: string
+  }) => void
 }
 
 // Tipos de secciones
 type SettingsSection = 'userPrefs' | 'notifications' | 'security' | 'appInfo'
 
-const SettingsModal: React.FC<SettingsModalProps> = ({ closeSettings, onAliasChange }) => {
+const SettingsModal: React.FC<SettingsModalProps> = ({
+  closeSettings,
+  onAliasChange,
+  currentCreds,
+  onUpdateCredentials
+}) => {
   // Para identificar la sección activa
   const [activeSection, setActiveSection] = useState<SettingsSection>('userPrefs')
 
-  // -- Estados de ejemplo (pon la lógica real si lo deseas) --
-
-  // Preferencias de usuario
+  // ---------------------
+  //   1. User Prefs
+  // ---------------------
   const [userAlias, setUserAlias] = useState<string>('TuAlias')
 
-  // Notificaciones y recordatorios
+  // Manejo para guardar alias
+  const handleSaveUserPrefs = () => {
+    onAliasChange(userAlias)
+    console.log('Guardando alias:', userAlias)
+    // Lógica real: localStorage / request a backend, etc.
+  }
+
+  // ---------------------
+  //   2. Notifications
+  // ---------------------
   const [notificationsEnabled, setNotificationsEnabled] = useState<boolean>(true)
   const [reminderFrequency, setReminderFrequency] = useState<'daily' | 'weekly' | 'none'>('daily')
   const [reminderTime, setReminderTime] = useState<string>('09:00')
 
-  // Seguridad y privacidad
-  const [newPassword, setNewPassword] = useState<string>('')
+  const handleSaveNotifications = () => {
+    console.log('Notificaciones:', notificationsEnabled, reminderFrequency, reminderTime)
+    // Lógica real de guardar
+  }
+
+  // ---------------------
+  //   3. Security
+  // ---------------------
+  // En vez de solo password, ahora manejamos username y email también,
+  // usando los "currentCreds" que vienen del padre.
+  const [secUsername, setSecUsername] = useState<string>(currentCreds.username)
+  const [secEmail, setSecEmail]   = useState<string>(currentCreds.email)
+  const [secPassword, setSecPassword] = useState<string>(currentCreds.password)
+
+  // Otras opciones de privacidad
   const [rememberSession, setRememberSession] = useState<boolean>(true)
 
-  // Información de la app (valores fijos de ejemplo)
+  const handleSaveSecurity = () => {
+    // Actualizamos credenciales en el padre:
+    onUpdateCredentials({
+      username: secUsername,
+      email: secEmail,
+      password: secPassword
+    })
+    console.log('Credenciales actualizadas a:', secUsername, secEmail, secPassword)
+
+    console.log('Recordar sesión:', rememberSession)
+    // Lógica real: localStorage, request a backend, etc.
+  }
+
+  // ---------------------
+  //   4. App Info
+  // ---------------------
   const appVersion = '1.0.0'
   const lastUpdate = '2025-01-21'
 
-  // -- Manejo de eventos (placeholder) --
-  const handleSaveUserPrefs = () => {
-    onAliasChange(userAlias)
-    console.log('Guardando alias:', userAlias)
-    // Aquí tu lógica real (localStorage, request a backend, etc.)
-  }
-
-  const handleSaveNotifications = () => {
-    console.log('Notificaciones:', notificationsEnabled, reminderFrequency, reminderTime)
-  }
-
-  const handleChangePassword = () => {
-    if (!newPassword.trim()) return
-    console.log('Cambiando contraseña a:', newPassword)
-    setNewPassword('')
-  }
-
-  const handleSavePrivacy = () => {
-    console.log('Recordar sesión:', rememberSession)
-  }
-
-  // -- Render del contenido según la sección activa --
+  // ---------------------
+  //   Render Secciones
+  // ---------------------
   const renderActiveSection = () => {
     switch (activeSection) {
       case 'userPrefs':
@@ -117,16 +156,27 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ closeSettings, onAliasCha
         return (
           <div className="settings-section-content">
             <h3>Seguridad y Privacidad</h3>
-            <label htmlFor="password">Cambiar contraseña:</label>
-            <div className="input-row">
-              <input
-                id="password"
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-              <button onClick={handleChangePassword}>Cambiar</button>
-            </div>
+
+            <label>Username:</label>
+            <input
+              type="text"
+              value={secUsername}
+              onChange={(e) => setSecUsername(e.target.value)}
+            />
+
+            <label>Email:</label>
+            <input
+              type="email"
+              value={secEmail}
+              onChange={(e) => setSecEmail(e.target.value)}
+            />
+
+            <label>Contraseña:</label>
+            <input
+              type="password"
+              value={secPassword}
+              onChange={(e) => setSecPassword(e.target.value)}
+            />
 
             <div className="input-row checkbox-row" style={{ marginTop: '1rem' }}>
               <input
@@ -138,7 +188,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ closeSettings, onAliasCha
               <label htmlFor="remember-session">Recordar sesión</label>
             </div>
 
-            <button onClick={handleSavePrivacy} style={{ marginTop: '1rem' }}>
+            <button onClick={handleSaveSecurity} style={{ marginTop: '1rem' }}>
               Guardar
             </button>
           </div>
@@ -187,7 +237,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ closeSettings, onAliasCha
     <div className="settings-overlay" onClick={handleOverlayClick}>
       <div className="settings-modal" onClick={handleModalClick}>
         
-        {/* Cerrar con X */}
+        {/* Botón X para cerrar */}
         <button className="settings-close-btn" onClick={closeSettings}>×</button>
         
         {/* Layout de dos columnas: sidebar izq + contenido der */}
