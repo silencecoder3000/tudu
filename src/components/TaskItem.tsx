@@ -1,10 +1,10 @@
-import React from 'react'
-import { Task } from '../types'
+import React from 'react';
+import { Task } from '../types';
 
 interface TaskItemProps {
-  task: Task
-  onToggleComplete: () => void
-  onToggleStarred: () => void
+  task: Task;
+  onToggleComplete: () => void;
+  onToggleStarred: () => void;
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, onToggleComplete, onToggleStarred }) => {
@@ -14,17 +14,17 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onToggleComplete, onToggleSta
         <div
           className={`circle ${task.isCompleted ? 'completed' : ''}`}
           onClick={onToggleComplete}
-          title="Completar tarea"
+          title="Marcar tarea como completada"
         />
-        <div className="task-info">
-          <span className={`task-title ${task.isCompleted ? 'line-through' : ''}`}>
-            {task.title}
-          </span>
-          <p className="task-desc">{task.description}</p>
-        </div>
       </div>
       <div className="task-right">
-        <div className="task-date">{task.dueDate}</div>
+        {/* Mostrar la descripción como título */}
+        <h3 className="task-description">{task.description}</h3>
+        {/* Mostrar si la tarea está completada */}
+        <div className={`task-status ${task.isCompleted ? 'completed' : 'pending'}`}>
+          {task.isCompleted ? 'Completada' : 'Pendiente'}
+        </div>
+        {/* Botón para marcar como favorito */}
         <span
           className={`star ${task.isStarred ? 'starred' : ''}`}
           onClick={onToggleStarred}
@@ -34,8 +34,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onToggleComplete, onToggleSta
         </span>
       </div>
     </div>
-  )
+  );
 }
 
-export default TaskItem
-
+export default TaskItem;

@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 interface LoginProps {
-  onLogin?: () => void;
+  onLogin: () => void;
+  setAuthToken: React.Dispatch<React.SetStateAction<string>>;
+  loadCategories: () => Promise<void>;
+
 }
 
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
+const Login: React.FC<LoginProps> = ({ onLogin, setAuthToken, loadCategories, authToken }) => {
   const navigate = useNavigate();
 
   const [userOrEmail, setUserOrEmail] = useState('');
@@ -15,7 +18,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch('http://localhost:5176/login', {
         method: 'POST',
@@ -27,22 +30,22 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           Password: password,
         }),
       });
-  
+
       const result = await response.json();
-  
+
       if (response.ok && result.success) {
-
         console.log(result.message);
-  
+        console.log(result.token);
+        localStorage.setItem('authToken', result.token); 
+        setAuthToken(result.token); 
+        console.log("Se cambió el token");
 
-        localStorage.setItem('authToken', result.token);
         if (onLogin) {
-          onLogin();
+          onLogin(); // Cambiar el estado de login
         }
-
+        loadCategories();
         alert('Inicio de sesión exitoso');
       } else {
-        // Inicio de sesión fallido
         console.error(result.message);
         alert(result.message); // Mostrar mensaje al usuario
       }
@@ -51,11 +54,11 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       alert('Ocurrió un error inesperado. Por favor, intenta de nuevo.');
     }
   };
-  
+
+
 
   const goToSignUp = () => {
-    // Navega a /signup
-    navigate('/signup');
+    navigate('/signup'); // Navega a la página de registro
   };
 
   return (
@@ -101,7 +104,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           </div>
 
           <div className="buttons-row">
-            {/* Botón que navega a la página de Sign Up */}
             <button
               type="button"
               className="signup-btn"
@@ -110,7 +112,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               Sign Up
             </button>
 
-            {/* Botón que envía el formulario de Login */}
             <button
               type="submit"
               className="login-btn"
@@ -121,7 +122,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         </form>
       </div>
 
-      {/* Semicírculo con info a la derecha */}
       <div className="intro-box">
         <div className="intro-content">
           <h2 className="tudu-title">tu-DU</h2>

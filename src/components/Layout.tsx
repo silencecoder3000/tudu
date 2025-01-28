@@ -1,18 +1,18 @@
 import React from 'react'
 import Sidebar from './Sidebar'
 import MainContent from './MainContent'
-import { Task } from '../types'
+import { Category, Task } from '../types'
 
 interface LayoutProps {
   tasks: Task[]
-  categories: string[]
+  categories: Category[]
   selectedCategory: string
   onCategorySelect: (category: string) => void
-  removeCategory: (cat: string) => void
+  removeCategory: (cat: number) => void
   onSearch: (term: string) => void
   filteredTasks: Task[]
   completedTasksInCat: Task[]
-  addTask: (newTask: Omit<Task, 'id'>) => void
+  addTask: (newTask: { description: string, priority: string, endDate: string }) => void;
   toggleComplete: (id: number) => void
   toggleStarred: (id: number) => void
   showModal: boolean

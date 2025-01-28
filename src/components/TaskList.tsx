@@ -13,6 +13,9 @@ const TaskList: React.FC<TaskListProps> = ({
   toggleComplete,
   toggleStarred
 }) => {
+
+ 
+
   if (!tasks.length) {
     return <p style={{ marginTop: '1rem' }}>No hay tareas para mostrar.</p>
   }
