@@ -54,11 +54,13 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp }) => {
 
       const result = await response.json();
 
-      if (result.success) {
+      if (response.ok) {
         alert(`Usuario: ${user} creado correctamente`);
         if (onSignUp) {
           onSignUp(user, email, password, confirmPassword);
+
         }}
+        navigate('/');
     
     } catch (error) {
       console.error('Error al registrar el usuario:', error);
